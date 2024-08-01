@@ -8,8 +8,8 @@ import os
 import shutil
 
 
-class Mmm(CMakePackage):
-    """MMM package"""
+class MfemMgis(CMakePackage):
+    """Mfem-mgis package"""
 
     homepage = "https://github.com/thelfer/mfem-mgis"
     url      = "https://github.com/thelfer/mfem-mgis.git"
