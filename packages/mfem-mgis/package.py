@@ -16,7 +16,7 @@ class MfemMgis(CMakePackage):
 
     version('develop', git='https://github.com/thelfer/mfem-mgis.git',
         branch='master', submodules='True')
-    version("rliv-1.0", git='https://github.com/thelfer/mfem-mgis.git', branch="rliv-1.0")
+    version('rliv-1.0', git='https://github.com/thelfer/mfem-mgis.git', branch='rliv-1.0')
 
 
     variant('static'      , default=True   , description='Build static library')
