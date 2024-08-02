@@ -14,8 +14,7 @@ class MfemMgis(CMakePackage):
     homepage = "https://github.com/thelfer/mfem-mgis"
     url      = "https://github.com/thelfer/mfem-mgis.git"
 
-    version('develop', git='https://github.com/thelfer/mfem-mgis.git',
-        branch='master', submodules='True')
+    version('develop', git='https://github.com/thelfer/mfem-mgis.git',  branch='master', submodules='True')
     version('rliv-1.0', git='https://github.com/thelfer/mfem-mgis.git', branch='rliv-1.0')
 
 
@@ -60,8 +59,10 @@ class MfemMgis(CMakePackage):
     depends_on('mfem@4.7.0:+suite-sparse', when='+suite-sparse')
     depends_on('mfem@4.7.0:+mumps', when='+mumps')
     depends_on('mfem@4.7.0:+petsc', when='+petsc')
-    depends_on('mgis@2.2:+c~fortran~python')
-    depends_on('tfel@4.2.0:~python~python_bindings')
+    depends_on('mgis@2.2:+c~fortran~python', when="@rliv-1.0")
+    depends_on('tfel@4.2.0:~python~python_bindings', when="@rliv-1.0")
+    depends_on('mgis@master:+c~fortran~python', when="@develop")
+    depends_on('tfel@master:~python~python_bindings', when="@develop")
     depends_on('blas', when='+lapack')
     depends_on('lapack@3.0:', when='+lapack')
 
