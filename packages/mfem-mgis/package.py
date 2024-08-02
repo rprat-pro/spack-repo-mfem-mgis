@@ -14,7 +14,7 @@ class MfemMgis(CMakePackage):
     homepage = "https://github.com/thelfer/mfem-mgis"
     url      = "https://github.com/thelfer/mfem-mgis.git"
 
-    version('develop', git='https://github.com/thelfer/mfem-mgis.git',  branch='master', submodules='True')
+    version('develop', git='https://github.com/thelfer/mfem-mgis.git',  branch='master', submodules='True', preferred=True)
     version('rliv-1.0', git='https://github.com/thelfer/mfem-mgis.git', branch='rliv-1.0')
 
 
