@@ -52,7 +52,7 @@ class MfemMgis(CMakePackage):
     conflicts('+superlu-dist~mpi')
 
     depends_on('mpi', when='+mpi')
-    depends_on('hypre')
+    depends_on('hypre@2.26.0')
     depends_on('metis@5.1.0:')
     depends_on('mfem@4.7.0:')
     depends_on('mfem@4.7.0:+mpi', when='+mpi')
