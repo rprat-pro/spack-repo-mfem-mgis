@@ -35,7 +35,7 @@ class MfemMgis(CMakePackage):
     variant('strumpack'   , default=False  , description='Enable support for STRUMPACK')
     variant('suite-sparse', default=True   , description='Enable serial, sparse direct solvers')
     variant('petsc'       , default=False  , description='Enable PETSc solvers, preconditioners, etc.')
-    variant('miniapps'       , default=True  , description='Build and install MFEM miniapps') 
+    variant('miniapps'    , default=True  , description='Build and install MFEM miniapps') 
     variant('sundials'    , default=False  , description='Enable Sundials time integrators')
     variant('pumi'        , default=False  , description='Enable functionality based on PUMI')
     variant('gslib'       , default=False  , description='Enable functionality based on GSLIB')
