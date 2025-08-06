@@ -104,3 +104,6 @@ class MfemMgis(CMakePackage):
     depends_on('umpire@2.0.0:', when='+umpire')
     depends_on('umpire+cuda', when='+umpire+cuda')
 
+    def setup_run_environment(self, env):
+        env.set('MFEMMGIS_DIR', self.prefix + "/share/mfem-mgis/cmake/")
+
