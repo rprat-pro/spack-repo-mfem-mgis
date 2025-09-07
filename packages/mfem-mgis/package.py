@@ -2,8 +2,9 @@
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 # Contributions made by CEA, France
+from spack_repo.builtin.build_systems.cmake import CMakePackage
+from spack.package import *
 
-from spack import *
 import os
 import shutil
 
@@ -12,11 +13,11 @@ class MfemMgis(CMakePackage):
     """Mfem-mgis package"""
 
     homepage = "https://github.com/thelfer/mfem-mgis"
-    url      = "https://github.com/thelfer/mfem-mgis.git"
+    git      = "https://github.com/thelfer/mfem-mgis.git"
 
-    version('develop', git='https://github.com/thelfer/mfem-mgis.git',  branch='master', submodules='True', preferred=True)
-    version('1.0.1', git='https://github.com/thelfer/mfem-mgis.git',  tag='v1.0.1')
-    version('rliv-1.0', git='https://github.com/thelfer/mfem-mgis.git', branch='rliv-1.0')
+    version('develop', branch='master', submodules='True', preferred=True)
+    version('1.0.1', tag='v1.0.1')
+    version('rliv-1.0', branch='rliv-1.0')
 
 
     variant('static'      , default=True   , description='Build static library')
