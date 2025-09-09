@@ -104,7 +104,12 @@ class Mgis(CMakePackage):
 
     def patch(self):
         """Fix the test suite to use the PYTHONPATH provided by the spack buildenv"""
-        filter_file("tests/;", "tests:", "bindings/python/tests/CMakeLists.txt")
+        filter_file("tests/;", "tests:")
+        if "+python" in self.spec:
+            if when("@3.0.1") or when("@rliv-3.0"):
+                filter_file("tests/;", "bindings/python/boost/tests/CMakeLists.txt")
+            else:
+                filter_file("tests/;", "bindings/python/tests/CMakeLists.txt")
 
     def check(self):
         """skip target 'test' which doesn't build the test programs used by tests"""
@@ -120,6 +125,7 @@ class Mgis(CMakePackage):
         args.append("-DUSE_EXTERNAL_COMPILER_FLAGS=ON")
         args.append("-Denable-website=OFF")
         args.append("-Denable-doxygen-doc=OFF")
+        args.append("-DTFEL_DIR={0}/share/tfel/cmake".format(self.spec["tfel"].prefix))
 
         for i in ["c", "fortran", "python"]:
             if "+" + i in self.spec:
