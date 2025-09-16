@@ -65,9 +65,6 @@ class MfemMgis(CMakePackage):
     depends_on('mfem@4.7.0:+petsc', when='+petsc')
     depends_on('mgis@2.2:+c~fortran~python', when="@rliv-1.0")
     depends_on('tfel@4.2.0:~python~python_bindings', when="@rliv-1.0")
-#    depends_on('mgis@3.0.1:+c~fortran~python', when="@develop")
-#    depends_on('tfel@5.0.1:~python~python_bindings', when="@develop")
-
     depends_on('tfel@5.0.1:~python~python_bindings', when="@develop")
     depends_on('mgis@3.0.1:+c~fortran~python', when="@develop")
     depends_on('blas', when='+lapack')
@@ -113,4 +110,9 @@ class MfemMgis(CMakePackage):
 
     def setup_run_environment(self, env):
         env.set('MFEMMGIS_DIR', self.prefix + "/share/mfem-mgis/cmake/")
+
+    def setup_build_environment(self, env):
+        hypre_prefix = self.spec['hypre'].prefix
+        env.set('HYPRE_DIR', hypre_prefix)
+
 
