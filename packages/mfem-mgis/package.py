@@ -16,6 +16,8 @@ class MfemMgis(CMakePackage):
     git      = "https://github.com/thelfer/mfem-mgis.git"
 
     version('develop', branch='master', submodules='True', preferred=True)
+    version('1.0.3', tag='v1.0.3')
+    version('1.0.2', tag='v1.0.2')    
     version('1.0.1', tag='v1.0.1')
     version('rliv-1.0', branch='rliv-1.0')
 
@@ -65,6 +67,9 @@ class MfemMgis(CMakePackage):
     depends_on('mfem@4.7.0:+petsc', when='+petsc')
     depends_on('mgis@2.2:+c~fortran~python', when="@rliv-1.0")
     depends_on('tfel@4.2.0:~python~python_bindings', when="@rliv-1.0")
+    depends_on('mgis@2.2:+c~fortran~python', when="@v1.0.1")
+    depends_on('mgis@3.0.1:+c~fortran~python', when="@v1.0.2")
+    depends_on('mgis@master:+c~fortran~python', when="@v1.0.3")
 #    depends_on('tfel@5.0.1:~python~python_bindings', when="@develop")
 #    depends_on('mgis@3.0.1:+c~fortran~python', when="@develop")
     depends_on('tfel@master:~python~python_bindings', when="@develop")
