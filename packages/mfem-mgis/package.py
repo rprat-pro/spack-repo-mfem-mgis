@@ -56,16 +56,17 @@ class MfemMgis(CMakePackage):
     conflicts('~static~shared')
     conflicts('+petsc~mpi')
     conflicts('+superlu-dist~mpi')
-
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
     depends_on('mpi', when='+mpi')
     depends_on('hypre+int64@2.26.0')
     depends_on('metis+int64@5.1.0:')
-    depends_on('mfem@4.7.0:')
-    depends_on('mfem@4.7.0:+miniapps', when='+miniapps')    
-    depends_on('mfem@4.7.0:+mpi', when='+mpi')
-    depends_on('mfem@4.7.0:+suite-sparse', when='+suite-sparse')
-    depends_on('mfem@4.7.0:+mumps', when='+mumps')
-    depends_on('mfem@4.7.0:+petsc', when='+petsc')
+    depends_on('mfem@4.8.0:')
+    depends_on('mfem@4.8.0:+miniapps', when='+miniapps')
+    depends_on('mfem@4.8.0:+mpi', when='+mpi')
+    depends_on('mfem@4.8.0:+suite-sparse', when='+suite-sparse')
+    depends_on('mfem@4.8.0:+mumps', when='+mumps')
+    depends_on('mfem@4.8.0:+petsc', when='+petsc')
     depends_on('blas', when='+lapack')
     depends_on('lapack@3.0:', when='+lapack')
 
@@ -130,4 +131,7 @@ class MfemMgis(CMakePackage):
         env.set('HYPRE_DIR', hypre_prefix)
         env.prepend_path("CMAKE_PREFIX_PATH", self.spec['tfel'].prefix +"/share/tfel/cmake")
 
-
+    def cmake_args(self):
+        args = []
+        args.append(self.define("CMAKE_POSITION_INDEPENDENT_CODE", True))
+        return args
