@@ -130,6 +130,7 @@ class MfemMgis(CMakePackage):
         hypre_prefix = self.spec['hypre'].prefix
         env.set('HYPRE_DIR', hypre_prefix)
         env.prepend_path("CMAKE_PREFIX_PATH", self.spec['tfel'].prefix +"/share/tfel/cmake")
+        env.prepend_path("CMAKE_PREFIX_PATH", self.spec['mgis'].prefix +"/share/mgis/cmake")
 
     def cmake_args(self):
         args = []
