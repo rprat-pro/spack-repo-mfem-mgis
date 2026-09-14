@@ -125,6 +125,8 @@ class MfemMgis(CMakePackage):
     def setup_run_environment(self, env):
         env.set('MFEMMGIS_DIR', self.prefix + "/share/mfem-mgis/cmake/")
         env.set("TFEL_DIR", self.spec['tfel'].prefix +"/share/tfel/cmake")
+        env.set("MFrontGenericInterface_DIR", self.spec['mgis'].prefix + "/share/mgis/cmake")
+        env.set("HYPRE_DIR", self.spec['hypre'].prefix)
 
     def setup_build_environment(self, env):
         hypre_prefix = self.spec['hypre'].prefix
