@@ -20,10 +20,8 @@ class MfemMgis(CMakePackage):
 
     license("LGPL-3.0-only")
 
-    # differences with the builtin recipe: master is the default version, the
-    # develop and rliv-1.0 versions are kept for backward compatibility, an mpi
-    # variant allows sequential builds, and TFEL_DIR, MFrontGenericInterface_DIR
-    # and HYPRE_DIR are still set in the run environment
+    # differences with the builtin recipe: master is the default version, and
+    # the develop and rliv-1.0 versions are kept for backward compatibility
     version("master", branch="master", preferred=True)
     version("develop", branch="master")
     version("rliv-1.0", branch="rliv-1.0")
@@ -34,6 +32,7 @@ class MfemMgis(CMakePackage):
     version("1.0.0", sha256="34ee7ee0751672ce195ef9e53d7d75205a19ff71da791faf76afbf67265ee1f6")
 
     variant("mpi", default=True, description="Enable MPI parallelism")
+    # mfem only supports MUMPS with MPI
     variant("mumps", default=True, when="+mpi", description="Enable the MUMPS solver in MFEM")
     variant("int64", default=True, description="Use 64-bit integers in hypre and metis")
 
@@ -47,11 +46,11 @@ class MfemMgis(CMakePackage):
     depends_on("mfem~mpi", when="~mpi")
     depends_on("mfem+mumps", when="+mumps")
     depends_on("mfem~mumps", when="~mumps")
+    # hypre is only used by the parallel build
     with when("+mpi"):
         depends_on("hypre")
-        # mfem@:4.8 requires hypre@:2, which can only be built with autotools:
-        # stating it avoids older solvers picking mfem@develop to get a hypre
-        # built with cmake
+        # mfem@:4.8 needs hypre@:2, only buildable with autotools: stating it
+        # keeps older solvers from picking mfem@develop to get cmake as default
         depends_on("hypre build_system=autotools", when="^mfem@:4.8")
         depends_on("hypre+int64", when="+int64")
         depends_on("hypre~int64", when="~int64")
@@ -89,8 +88,8 @@ class MfemMgis(CMakePackage):
 
     def setup_run_environment(self, env: EnvironmentModifications) -> None:
         env.set("MFEMMGIS_DIR", join_path(self.prefix.share, "mfem-mgis", "cmake"))
-        # used by projects built on top of mfem-mgis@:1.0.3, whose installed
-        # CMake configuration does not locate TFEL, MGIS and hypre
+        # needed by projects built on mfem-mgis@:1.0.3, whose CMake
+        # configuration file does not locate TFEL, MGIS and hypre
         env.set("TFEL_DIR", self.spec["tfel"].prefix.share.tfel.cmake)
         env.set("MFrontGenericInterface_DIR", self.spec["mgis"].prefix.share.mgis.cmake)
         if self.spec.satisfies("+mpi"):
